@@ -1,0 +1,163 @@
+{% load humanize %}
+{% if shop_cart_count > 0 %}
+
+{% comment %} <table class='table table-bordered'> 
+    <tr>
+        <th>ردیف</th>
+        <th>تصویر کالا</th>
+        <th>نام کالا</th>
+        <th>قیمت</th>
+        <th>تعداد</th>
+        <th>قیمت کل</th>
+        <th></th>
+    </tr>
+    {% for item in shop_cart %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>
+                <img src="{{media_url}}{{item.product.image_name}}" width='100' alt="{{item.product.image_name}}">
+            </td>
+            <td>{{item.product.product_name}}</td>
+            <td>{{item.price|intcomma:False}}  تومان</td>
+            <td>{{item.qty}}</td>
+            <td>{{item.total_price|intcomma:False}}  تومان</td>
+            <th>
+                <a onclick="delete_from_shop_cart({{item.product.id}})" style='cursor: pointer;'>
+                    <i class='fa fa-trash'>حذف</i>
+                </a>
+            </th>
+        </tr>
+    {% endfor %}
+    
+</table> {% endcomment %}
+
+
+
+		<!-- site__body -->
+		<div class="site__body">
+			<div class="page-header">
+				<div class="page-header__container container">
+					<div class="page-header__breadcrumb">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a href="index.html">خانه</a>
+									/
+								</li>
+								<li class="breadcrumb-item active" aria-current="page">سبد خرید</li>
+							</ol>
+						</nav>
+					</div>
+					<div class="page-header__title">
+						<h1>سبد خرید</h1></div>
+				</div>
+			</div>
+			<div class="cart block">
+				<div class="container">
+					<table class="cart__table cart-table">
+						<thead class="cart-table__head">
+							<tr class="cart-table__row">
+								<th class="cart-table__column cart-table__column--image">تصویر</th>
+								<th class="cart-table__column cart-table__column--product">محصول</th>
+								<th class="cart-table__column cart-table__column--price">قیمت</th>
+								<th class="cart-table__column cart-table__column--quantity">تعداد</th>
+								<th class="cart-table__column cart-table__column--total">جمع کل</th>
+								<th class="cart-table__column cart-table__column--remove"></th>
+							</tr>
+						</thead>
+						<tbody class="cart-table__body">
+                            {% for item in shop_cart %}
+							<tr class="cart-table__row">
+								<td class="cart-table__column cart-table__column--image">
+									<a href="{% url "product:product_details" slug=item.product.slug %}"><img src="{{media_url}}{{item.product.image_name}}" alt=""></a>
+								</td>
+								<td class="cart-table__column cart-table__column--product">
+									<a href="{% url "product:product_details" slug=item.product.slug %}" class="cart-table__product-name">
+										{{item.product.product_name}}
+									</a>
+									<ul class="cart-table__options">
+									</ul>
+								</td>
+								<td class="cart-table__column cart-table__column--price" data-title="قیمت">
+									{% if item.final_price < item.price %}
+										<del style='color:red;'>
+											{{item.price|intcomma}} تومان
+										</del>
+											<h6 style='color:green;'>{{item.final_price|intcomma}} تومان</h6>
+									{% else %}
+										{{item.price|intcomma}} تومان
+									{% endif %}
+								</td>
+								<td class="cart-table__column cart-table__column--quantity" data-title="تعداد">
+									<div class="input-number">
+										<input id="qty_{{item.product.id}}" style='width:60px;' type="number" min="1" value="{{item.qty}}">
+									</div>
+								</td>
+								<td class="cart-table__column cart-table__column--total" data-title="جمع کل">{{item.total_price|intcomma:False}}  تومان</td>
+								<td class="cart-table__column cart-table__column--remove">
+									<button type="button" class="btn btn-light btn-sm btn-svg-icon" onclick="delete_from_shop_cart({{item.product.id}})">
+										<i class="fa fa-trash"></i>
+									</button>
+								</td>
+							</tr>
+                            {% endfor %}
+						</tbody>
+					</table>
+					<div class="cart__actions">
+						<form class="cart__coupon-form">
+							<label for="input-coupon-code" class="sr-only">رمز عبور</label>
+						</form>
+						<div class="cart__buttons"> <a href="" class="btn btn-primary cart__update-button" onclick="update_shop_cart()">به روز رسانی سبد</a></div>
+					</div>
+					<div class="row justify-content-end pt-5">
+						<div class="col-12 col-md-7 col-lg-6 col-xl-5">
+							<div class="card">
+								<div class="card-body">
+									<h3 class="card-title">مجموع سبد</h3>
+									<table class="cart__totals">
+										<thead class="cart__totals-header">
+											<tr>
+												<th>جمع جزء</th>
+												<td>{{total_price|intcomma:False}} تومان</td>
+											</tr>
+										</thead>
+										<tbody class="cart__totals-body">
+											<tr>
+												<th>حمل و نقل</th>
+												<td>{{delivery|intcomma:False}} تومان
+													<div class="cart__calc-shipping"> </div>
+												</td>
+											</tr>
+											<tr>
+												<th>مالیات</th>
+												<td>{{tax|intcomma:False}} تومان</td>
+											</tr>
+										</tbody>
+										<tfoot class="cart__totals-footer">
+											<tr>
+												<th>جمع کل</th>
+												<td>{{order_final_price|intcomma:False}} تومان</td>
+											</tr>
+										</tfoot>
+									</table><a class="btn btn-primary btn-xl btn-block cart__checkout-button" href="{% url "orders:create_order" %}">ادامه خرید</a></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- site__body / end -->
+
+
+{% else %}
+<br>
+<br>
+<br>
+<br>
+<br>
+    <h1 style='text-align:center; color:red;'>سبد خرید شما خالی میباشد</h1>
+<br>
+<br>
+<br>
+<br>
+<br>
+{% endif %}

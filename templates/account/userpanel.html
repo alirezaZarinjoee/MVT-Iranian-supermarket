@@ -1,0 +1,13 @@
+{% extends "user_panel_template.html" %}
+{% block title %}پنل کاربری{% endblock title %}
+{% load render_partial %}
+
+{% block content %}
+    
+    <div class='dashboard'>
+        {% include "account/user_info.html" %}
+        {% render_partial "account:show_last_orders" %}
+    </div>
+
+{% endblock content %}
+

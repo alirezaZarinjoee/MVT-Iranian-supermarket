@@ -1,0 +1,12 @@
+{% extends "maintemplate.html" %}
+{% load render_partial %}
+
+{% block title %}
+    لیت مقایسه ها
+{% endblock title %}
+
+{% block content %}
+    <div id='compare_list'>
+        {% render_partial 'product:compare_table' %}
+    </div>
+{% endblock content %}

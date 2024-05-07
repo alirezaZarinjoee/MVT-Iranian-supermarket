@@ -1,0 +1,232 @@
+{% extends "maintemplate.html" %}
+{% load humanize %}
+{% load render_partial %}
+
+{% block title %}لیست گروه ها{% endblock title %}
+
+{% block content %}
+
+		<!-- site__body -->
+		<div class="site__body">
+			<div class="page-header">
+				<div class="page-header__container container">
+					<div class="page-header__breadcrumb">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb">
+		
+							</ol>
+						</nav>
+					</div>
+					<div class="page-header__title">
+						<h1>گروه: <span style='color:red;'>{{current_group}}</span></h1></div>
+				</div>
+			</div>
+			<div class="container">
+				<div class="shop-layout shop-layout--sidebar--start">
+					{% comment %} <div class="shop-layout__content">
+						<div class="block">
+							<div class="products-view">
+								<div class="products-view__options">
+									<div class="view-options">
+
+										<div class="view-options__legend">در حال نمایش 6 از 98 محصول</div>
+										<div class="view-options__divider"></div>
+										<div class="view-options__control">
+											<label for="">مرتب‌سازی بر اساس</label>
+											<div>
+												<select class="form-control form-control-sm" name="" id="">
+													<option value="">پیش فرض</option>
+													<option value="">نام (صعودی)</option>
+													<option value="">نام (نزولی)</option>
+												</select>
+											</div>
+										</div>
+										<div class="view-options__control">
+											<label for="">نمایش</label>
+											<div>
+												<select class="form-control form-control-sm" name="" id="">
+													<option value="">12</option>
+													<option value="">24</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="products-view__list products-list" data-layout="grid-3-sidebar" data-with-features="false">
+									<div class="products-list__body">
+										{% for product in page_obj %}
+											{% include "partioals/product/product_box.html" with type=3 %}
+										{% endfor %}
+
+									</div>
+								</div>
+								<div class="products-view__pagination">
+									<ul class="pagination justify-content-center">
+										<li class="page-item disabled">
+											<a class="page-link page-link--with-arrow" href="" aria-label="Previous">
+												<svg class="page-link__arrow page-link__arrow--left" aria-hidden="true" width="8px" height="13px">
+													<use xlink:href="images/sprite.svg#arrow-rounded-left-8x13"></use>
+												</svg>
+											</a>
+										</li>
+										<li class="page-item"><a class="page-link" href="">1</a></li>
+										<li class="page-item active"><a class="page-link" href="">2 <span class="sr-only">(کنونی)</span></a></li>
+										<li class="page-item"><a class="page-link" href="">3</a></li>
+										<li class="page-item">
+											<a class="page-link page-link--with-arrow" href="" aria-label="Next">
+												<svg class="page-link__arrow page-link__arrow--right" aria-hidden="true" width="8px" height="13px">
+													<use xlink:href="images/sprite.svg#arrow-rounded-right-8x13"></use>
+												</svg>
+											</a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div> {% endcomment %}
+					<div class="shop-layout__sidebar">
+						<div class="block block-sidebar">
+							<form action="">
+							<div class="block-sidebar__item">
+								<div class="widget-filters widget" data-collapse data-collapse-opened-class="filter--opened">
+									<h4 class="widget__title">فیلترها</h4>
+									<a id='filter_state' class='btn-filter-state' href="{% url "product:list_of_product" slug=group_slug %}">
+										<i class='fa fa-items'></i>
+										حذف فیلتر ها
+									</a>
+									<div class="widget-filters__list">
+
+									{% render_partial "product:product_groups_partial" %}
+									{% comment %} {% render_partial "product:features_for_filter" slug=group_slug %} {% endcomment %}
+
+									{% include "partioals/product/price_filter.html" %}
+									{% render_partial "product:brands_partial" slug=group_slug %}
+									
+									{% render_partial "product:features_for_filter" slug=group_slug %}
+								
+									{% comment %} {% render_partial "product:brands_partial" slug=group_slug %} {% endcomment %}
+
+									{% comment %} {% render_partial "product:features_for_filter" slug=group_slug %} {% endcomment %}
+									
+	
+									</div>
+									<div class="widget-filters__actions d-flex">
+										<button type="submit" class="btn btn-primary btn-sm">فیلتر</button>
+									</div>
+								</div>
+							</div>
+							</form>
+						</div>
+					</div>
+					<div class="shop-layout__content">
+						<div class="block">
+							<div class="products-view">
+								<div class="products-view__options">
+									<div class="view-options">
+
+										<div class="view-options__legend">در حال نمایش{{product_count}} محصول</div>
+										<div class="view-options__divider"></div>
+										<div class="view-options__control">
+											<label for="">مرتب‌سازی بر اساس</label>
+											<div>
+												<select class="form-control form-control-sm" name="" id="select_sort" onchange='select_sort()'>
+													{% if sort_type == '0' %}
+														<option value="0" selected>پیش فرض</option>
+														<option value="1">قیمت از کم به زیاد</option>
+														<option value="2">قیمت از زیاد به کم</option>
+													{% elif sort_type == '1' %}
+														<option value="0">پیش فرض</option>
+														<option value="1" selected>قیمت از کم به زیاد</option>
+														<option value="2">قیمت از زیاد به کم</option>
+													{% elif sort_type == '2' %}
+														<option value="0">پیش فرض</option>
+														<option value="1">قیمت از کم به زیاد</option>
+														<option value="2" selected>قیمت از زیاد به کم</option>
+													{% endif %}
+											</div>
+										</div>
+										<br>
+										<div class="view-options__control">
+											<label for="">نمایش</label>
+											<div>
+												<select class="form-control form-control-sm" name="" id="">
+
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="products-view__list products-list" data-layout="grid-3-sidebar" data-with-features="false">
+									<div class="products-list__body">
+										{% for product in page_obj %}
+											{% include "partioals/product/product_box.html" with type=3 %}
+										{% endfor %}
+
+									</div>
+								</div>
+<br>
+<br>
+<br>
+<!--Pagination-->
+<nav aria-label="Page navigation example">
+	<ul class="pagination justify-content-center">
+	{% if page_obj.has_previous %}
+		<li class="page-item">
+		<a class="page-link" href="?page={{ page_obj.previous_page_number }}">قبلی</a>
+	  </li>
+	{% else %}
+		<li class="page-item disabled">
+		<a class="page-link" href="#" tabindex="-1" aria-disabled="True">قبلی</a>
+	  </li>
+	{% endif %}
+
+	{% if page_obj.number|add:'-4' > 1 %}
+		<li class="page-item"><a class="page-link" href="?page={{ page_obj.number|add:'-5' }}">&hellip;</a></li>
+	{% endif %}
+
+	{% for i in page_obj.paginator.page_range %}
+		{% if page_obj.number == i %}
+			<li class="page-item active" aria-current="page">
+		  <span class="page-link">
+			{{ i }}
+		  </span>
+		</li>
+		{% elif i > page_obj.number|add:'-5' and i < page_obj.number|add:'5' %}
+			 <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+		{% endif %}
+	{% endfor %}
+
+	{% if page_obj.paginator.num_pages > page_obj.number|add:'4' %}
+	   <li class="page-item"><a class="page-link" href="?page={{ page_obj.number|add:'5' }}">&hellip;</a></li>
+	{% endif %}
+
+	{% if page_obj.has_next %}
+		<li class="page-item">
+		<a class="page-link" href="?page={{ page_obj.next_page_number }}">بعدی</a>
+	  </li>
+	{% else %}
+		<li class="page-item disabled">
+		<a class="page-link" href="#" tabindex="-1" aria-disabled="True">بعدی</a>
+	  </li>
+	{% endif %}
+  </ul>
+</nav>
+<!--end of Pagination-->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- site__body / end -->
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,279 @@
+		<!-- desktop site__header -->
+		<header class="site__header d-lg-block d-none">
+			<div class="site-header">
+				<!-- .topbar -->
+				<div class="site-header__topbar topbar">
+					<div class="topbar__container container">
+						<div class="topbar__row">
+							<div class="topbar__item topbar__item--link"><a class="topbar-link"
+									href="about-us.html">درباره ما</a></div>
+							<div class="topbar__item topbar__item--link"><a class="topbar-link"
+									href="contact-us.html">تماس با ما</a></div>
+							<div class="topbar__spring"></div>
+							<div class="topbar__item">
+								<div class="topbar-dropdown">
+									{% if user.is_authenticated %}
+									<button class="topbar-dropdown__btn" type="button">
+										<a href="{% url "account:userpanel_view" %}" class="topbar-link">پنل کاربری</a>
+										<i class="fa fa-user"></i>
+									</button>
+									{% endif %}
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+				<div class="site-header__middle container">
+					<div class="site-header__logo">
+						<a href="index.html">
+							<img src="{{media_url}}/images//logo.png" alt="">
+						</a>
+					</div>
+					<div class="site-header__search">
+						<div class="search">
+							<form class="search__form" action="{% url "search:search_view" %}">
+								<input class="search__input" name="q" placeholder="جستجو از میان محصولات"
+									aria-label="Site search" type="text" autocomplete="off">
+								<button class="search__button" type="submit">
+									<i class="fa fa-search"></i>
+								</button>
+								<div class="search__border"></div>
+							</form>
+						</div>
+					</div>
+					<div class="site-header__phone">
+						<div class="site-header__phone-title">پشتیبانی</div>
+						<div class="site-header__phone-number"><span class="ltr_text">081-45231</span></div>
+					</div>
+				</div>
+				<!-- .topbar / end -->
+				<div class="site-header__nav-panel">
+					<div class="nav-panel">
+						<div class="nav-panel__container container">
+							<div class="nav-panel__row">
+								<div class="nav-panel__logo">
+									<a href="{% url "main:main" %}">
+										<img src="{{media_url}}/images//shopLogo.png" alt="">
+									</a>
+								</div>
+								<!-- .nav-links -->
+								<div class="nav-panel__nav-links nav-links">
+									<ul class="nav-links__list">
+										<li class="nav-links__item nav-links__item--with-submenu">
+											<a href="{% url "main:main" %}">
+												<span><i class="fa fa-home"></i>&nbsp; خانه</span>
+											</a>
+										</li>
+										<li class="nav-links__item nav-links__item--with-submenu">
+											<a href="product-categories.html">
+												<span>
+													دسته بندی کالاها
+													&nbsp;
+													<i class="fa fa-angle-down"></i>
+												</span>
+											</a>
+											<div class="nav-links__megamenu nav-links__megamenu--size--nl">
+												<!-- .megamenu -->
+												<div class="megamenu">
+													<div class="row">
+														<div class="col-4">
+															<ul class="megamenu__links megamenu__links--level--0">
+																<li class="megamenu__item megamenu__item--with-submenu">
+																	<a href="">کالای دیجیتال</a>
+																	<ul
+																		class="megamenu__links megamenu__links--level--1">
+																		<li class="megamenu__item">
+																			<a href="product-list.html">موبایل</a>
+																			<ul>
+																				<li class="megamenu__links--level--2">
+																					<a href="#">لوازم جانبی</a>
+																				</li>
+																				<li class="megamenu__links--level--2">
+																					<a href="#">گوشی</a>
+																				</li>
+																			</ul>
+																		</li>
+																		<li class="megamenu__item">
+																			<a href="#">دوربین</a>
+																		</li>
+																		<li class="megamenu__item">
+																			<a href="#">لپ تاپ</a>
+																		</li>
+																		<li class="megamenu__item">
+																			<a href="#">سخت افزار کامپیوتر</a>
+																		</li>
+																	</ul>
+																</li>
+															</ul>
+														</div>
+														<div class="col-4">
+															<ul class="megamenu__links megamenu__links--level--0">
+																<li class="megamenu__item megamenu__item--with-submenu">
+																	<a href="">مد و پوشاک</a>
+																	<ul
+																		class="megamenu__links megamenu__links--level--1">
+																		<li class="megamenu__item">
+																			<a href="#">مردانه</a>
+																			<ul>
+																				<li class="megamenu__links--level--2">
+																					<a href="#">پیراهن</a>
+																				</li>
+																				<li class="megamenu__links--level--2">
+																					<a href="#">شلوار</a>
+																				</li>
+																				<li class="megamenu__links--level--2">
+																					<a href="#">کفش</a>
+																				</li>
+																			</ul>
+																		</li>
+																		<li class="megamenu__item">
+																			<a href="#">زنانه</a>
+																			<ul>
+																				<li class="megamenu__links--level--2">
+																					<a href="#">پیراهن</a>
+																				</li>
+																				<li class="megamenu__links--level--2">
+																					<a href="#">شلوار</a>
+																				</li>
+																				<li class="megamenu__links--level--2">
+																					<a href="#">کفش</a>
+																				</li>
+																			</ul>
+																		</li>
+																		<li class="megamenu__item">
+																			<a href="#">بچه گانه</a>
+																		</li>
+
+																	</ul>
+																</li>
+															</ul>
+														</div>
+														<div class="col-4">
+															<ul class="megamenu__links megamenu__links--level--0">
+																<li class="megamenu__item megamenu__item--with-submenu">
+																	<a href="">مواد غذایی</a>
+																	<ul
+																		class="megamenu__links megamenu__links--level--1">
+																		<li class="megamenu__item">
+																			<a href="#">کالای اساسی و خواربار</a>
+																			<ul>
+																				<li class="megamenu__links--level--2">
+																					<a href="#">برنج</a>
+																				</li>
+																				<li class="megamenu__links--level--2">
+																					<a href="#">قند</a>
+																				</li>
+																				<li class="megamenu__links--level--2">
+																					<a href="#">سایر</a>
+																				</li>
+																			</ul>
+																		</li>
+																		<li class="megamenu__item">
+																			<a href="#">نوشیدنی</a>
+																			<ul>
+																				<li class="megamenu__links--level--2">
+																					<a href="#">چای</a>
+																				</li>
+																				<li class="megamenu__links--level--2">
+																					<a href="#">دمنوش</a>
+																				</li>
+																			</ul>
+																		</li>
+
+
+																	</ul>
+																</li>
+															</ul>
+														</div>
+
+													</div>
+												</div>
+												<!-- .megamenu / end -->
+											</div>
+										</li>
+
+										<li class="nav-links__item nav-links__item--with-submenu">
+											<a href="#">
+												<span>
+													حساب کاربری&nbsp;<i class="fa fa-angle-down"></i>
+												</span>
+											</a>
+											<div class="nav-links__menu">
+												<!-- .menu -->
+												{% if user.is_authenticated %}
+													<ul class="menu menu--layout--classic">
+														<li><a href="{% url "account:logout_view" %}">خروج</a></li>
+													</ul>
+												{% else %}
+													<ul class="menu menu--layout--classic">
+														<li><a href="{% url "account:login_view" %}">ورود</a></li>
+														<li><a href="{% url "account:register_view" %}">ثبت نام</a></li>
+													</ul>
+												{% endif %}
+												<!-- .menu / end -->
+											</div>
+										</li>
+										<li class="nav-links__item nav-links__item--with-submenu">
+											<a href="blog.html">
+												<span><i class="fa fa-newspaper"></i>&nbsp; بلاگ</span>
+											</a>
+										</li>
+
+									</ul>
+								</div>
+								<!-- .nav-links / end -->
+								<div class="nav-panel__indicators">
+									<div class="indicator indicator--trigger--click">
+										<button type="button" class="indicator__button">
+											<span class="indicator__area">
+												<i class="fa fa-search"></i>
+											</span>
+										</button>
+										<div class="indicator__dropdown">
+											<div class="drop-search">
+												<form action="{% url "search:search_view" %}" class="drop-search__form">
+													<input class="drop-search__input" name="q"
+														placeholder="جستجو از میان محصولات"
+														aria-label="Site search" type="text" autocomplete="off">
+													<button class="drop-search__button drop-search__button--submit"
+														type="submit">
+														<i class="fa fa-search"></i>
+													</button>
+												</form>
+											</div>
+										</div>
+									</div>
+									<div class="indicator">
+										<a href="{% url "csf:user_favorite" %}" class="indicator__button">
+											<span class="indicator__area">
+												<i class="fa fa-heart"></i>
+												<span class="indicator__value" id="indicator__valu">3</span>
+											</span>
+										</a>
+									</div>
+									<div class="indicator">
+										<a href="{% url "orders:shop_cart" %}" class="indicator__button">
+											<span class="indicator__area">
+												<i class="fa fa-shopping-cart"></i>
+												<span class="indicator__value" id="indicator__value">3</span>
+											</span>
+										</a>
+									</div>
+									<div class="indicator">
+										<a href="{% url "product:show_compare_list" %}" class="indicator__button">
+											<span class="indicator__area">
+												<i><b>لیست مقایسه ها </b></i>
+												{% comment %} <span class="indicator__value" id="compare_count_icon">3</span> {% endcomment %}
+											</span>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+		<!-- desktop site__header / end -->

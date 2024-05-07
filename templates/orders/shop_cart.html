@@ -1,0 +1,12 @@
+{% extends "maintemplate.html" %}
+{% load render_partial %}
+{% load humanize %}
+{% block title %} سبد خرید {% endblock title %}
+
+{% block content %}
+
+    <div id='shop-cart-list'>
+        {% render_partial 'orders:show_shop_cart' %}
+    </div>
+
+{% endblock content %}
